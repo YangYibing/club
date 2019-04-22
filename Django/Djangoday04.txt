@@ -1,0 +1,25 @@
+响应对象：
+	.set_cookie(key,value,max_age)
+	key:cookie的名称
+	value:cookie的值
+	max_age:最大存活时间
+	  取值为正数，则正常计算过期时间
+	  取回为0，删除cookie
+	
+	2.获取cookie
+	   request.COOKIES
+	   以字典的方式返回了当前站点下所有的cookie
+		
+	3.删除cookie
+	   响应对象.delete_cookie('key')
+
+2.session
+	1.什么是session
+	   保存在服务器端中的文本数据
+	2.session在Django中的实现
+	   1.保存session
+	     request.session['key'] = value
+	   2.获取session
+	     value = request.session['key']
+	   3.删除session
+	     del request.session['key']

@@ -1,0 +1,131 @@
+通过正则表达式的子组
+	() - 子组，一个子组表示一个参数，多个参数使用多个子组
+	但是需要使用/隔开
+	urlpatterns = [
+	    
+	]
+
+Django 中的应用
+	1.什么是应用 -app
+	  一个应用就是网站中一个独立的业务逻辑程序包
+	  Django中的主目录只做配置不做业务，所有的业务都要
+
+	2.创建应用
+	  1.创建
+		python3 manage.py startapp 应用名称
+	  2.注册
+	 	在settings.py 中
+		INSTALLED_APPS = [
+		   ...  ...,
+		   创建好的应用名称，
+		
+		]
+	 3.应用的结构组成
+	    1.migration  目录
+		存放数据库迁移的文件
+	    2.__init__.py
+		初始化
+	    3.admain.py
+		后台管理配置文件
+   	    4.apps.py
+		应用属性配置文件
+	    5.models.py
+		模型，实体类文件
+	    6.tests.py
+		应用的单元测试文件
+	    7.views.py
+		定义视图
+
+
+	4.分布式路由系统
+	    1.每个应用中都创建一个  urls.py
+	    格式参考主文件夹的urls.py
+
+	    2.在主路由当中，将请求分发给应用的urls.py继续做处理
+	    3.应用的urls找到自己的views去做业务处理
+		示例：
+		访问路径  /news/..
+		一律交给news应用中的url做进一步的处理
+
+	    4.Django 中的模板 - Templates 
+		1.什么是模板
+		  Django的模板引擎是由Django提供的
+		2.模板的设置问题
+		  在settings.py中，有一个Templates的变量
+		3.模板的加载方式
+		  1.通过loader对象获取模板，通过HTTPResponse响应
+		    from django.template import loader
+		  #1.通过loader加载模板
+		  t = loader.get_template('模板名称')
+		  #2.将模板渲染成字符串
+		  #3.将字符串响应给客户端
+		  return HttpResponse(html)	  	
+	        5.使用render()加载并响应模板
+		  from Django.shortcuts import render
+		  return render（request,'模板名称'）
+	
+	4.模板的语法
+		1.变量
+		   1.Django中允许作为变量的数据类型
+		字符串，整数，列表，元组，字典，对象，函数
+		2.变量的语法
+		   1.在后端处理
+		注：变量必须要封装到字典中才能传递给模板
+		dic = {
+		   'var1':'value1',
+		   'var2':'value2',
+		}
+
+		1.使用loader
+		t = loader.get_template('xxx.html')
+		html = t.render(dic)
+		return HttpResponse(html)
+		2.使用render
+
+		if 标签
+		{% if %}
+		{% else %}
+		{% endif %}
+		
+
+		1.forloop.counter:当前循环遍历的次数
+		2.forloop.counter0:当前循环遍历的下标
+		3.forloop.first:  
+		4.forloop.last:
+
+		过滤器
+		default
+		   作用：如果变量是空字符串的话，则输出default的值
+		语法：{{var|default:'value'}}
+		2.default_if_none
+		   作用：如果变量是none的话，则输出后面的参数值
+		   语法：{{var|default_if_none:'value'}}
+		3.floatformat
+		   作用：对小数进行四舍五入保留到几位
+		4.truncatechars
+		   作用：保留n位字符，后面用...表示
+		   语法：{{}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

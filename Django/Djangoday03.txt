@@ -1,0 +1,187 @@
+关系映射：
+	1.一对一映射
+	  1.语法：在关联的两个类中的任何一个类中
+	  属性 = models.OneToOneField(Entry)
+	2.示例：
+	   class Author(models.Model):
+	   
+   	   class Wife(models.Model):
+		xxxx
+		author = models.OneToOneField(Author)
+	注意：
+	   1.在wife表中会有一个author_id的列引用自Author主键
+	   2.在Author的实体中会有一个隐式属性  -wife
+	
+	在wife中：
+	   可以通过author属性，引用对应的Author对象
+	   可以通过author_id属性，引用对应的Author的id
+	在Author中
+	   可以
+	2.一对多映射
+	   1.语法
+		在多实体类中增加对‘一’实体的引用
+		属性 = models.ForeignKey（Entry）
+	   2.示例：
+		一个出版社有多个图书
+	 	一本书只属于一个出版社
+	   class  Publisher(models.Model):
+		xxx
+
+	   class Book(models.Model):
+		xxx
+		publisher = models.ForeignKey(Publisher)
+	   3.数据管理
+	     1.增加数据
+		通过 book.publisher_id  插入关联数据
+		  book = Book()
+		  book.publisher_id = 1
+		  book.save()
+	     2.通过book.publisher插入关联数据
+		  pub = Publisher.object.get(id = 1)
+		  book.publisher = pub
+		  book.save()
+	     3.查询数据
+		  1.通过Book 查询 Publisher
+		  book = Book.object.get(id=1)
+		  pub = book.publisher
+		  2.通过 Publisher 中查询对应的所有Book
+		  Django中会在Publisher中增加一个隐式属性表示对
+		  所有的Book的查询引用	
+	3.多对多映射
+		1.语法：
+		  在关联的两个类的任意一个类中增加
+		  属性 = models.ManyToManyField（Entry）	    
+
+		2.示例
+		  class Publisher（models。Model）：
+		   xxx
+		  class Author
+
+		1.增加数据
+		  通过关联属性  add() 实现数据的增加
+		2.删除数据
+		  通过关联属性  remove()实现数据的删除
+		3.查询数据
+		  通过关联属性获取对应的数据们
+
+
+
+		person.objects.all（）
+		person.objects.all（）[:10]
+		person.objects.get(name=name)
+		person.objects.filter(name='abc')
+		person.objects.filter
+
+
+		request.GET:获取get请求中的数据
+		request.POST：获取post请求中的数据
+		request.COOKIES ：获取cookies中的数据
+		request.META：获取请求消息头
+			request.META['HTTP_REFERER']:请求源地址
+		
+		3.获取请求提交的数据
+		 1.get方式
+		   1.语法：
+			request.GET['参数名']
+			request.GET.get('参数名','值')
+			当选框为多选时
+			request.GET.getlist('参数名')
+		   2.能够产生get请求方式的场合
+			1.地址栏上的请求
+			  <a href='/xxx?参数=值&参数=值'
+			2.location.href='/xxx?参数=值&参数=值'
+		 2.表单中的get方式
+		 注意：
+			url(r'^01-get/(\d{4}/$)')
+			此方法属于Django的特有方式，只在Django中有效
+			而非HTTP标准协议
+
+		  3.post方法：
+			1.语法：request.POST['参数名']
+			request.POST.get('参数名')
+			request.POST.getlist（'参数名'）
+		  
+		  2.CSRF
+			Cross-Site Request Forgery
+			跨站点	   请求	   伪装
+			（跨站点请求伪装攻击）
+
+		 2.使用forms模块处理表单
+			1.forms的作用
+			  通过class生成 模板中的表单（form）
+			2.通过forms 模块
+			  1.在应用中创建forms.py文件	
+			  2.导入Django提供的forms模块
+			    from Django import forms
+			  3.创建class，一个类会生成一个表单
+			    class ClassName(forms.Form)
+				pass
+		  forms.Form的语法
+			属性 = forms.类型(参数)	
+
+		  自动解析
+			1.{{ form.as_p }}
+			   每个属性都使用p标记括起来
+			2.{{form.as_ul}}
+			   每个属性都使用li标记括起来
+
+			<ul>
+			   {{form.as_ul}}
+			</ul>
+			3.{{form.as_table}}
+			通过forms模块获取表单数据
+			  1.通过表单类的构造器接收post数据
+			   RemarkForm（request.POST）
+			  2.必须调用Form 对象的验证方法
+			   form.is_valid()
+				返回True：通过验证
+				返回FALSE：未通过验证
+			  3.获取表单数据
+			    通过form.cleaned_data 来获取表单数据 -dict
+			1.在forms.py中创建class
+			   继承自form.ModelsForm
+			2.创建内部类 - meta  关联Model  Meta 相关属性
+			   1.model ： 指定要关联的实体类
+			   2.Fields ：指定从models类中取哪些字段生成控件
+			      1.取值为 ‘__all__’
+				实体类中全部属性都生成控件
+			      2.取值为列表
+				将要生成控件的属性名放在列表中
+			   3.labels：指定每个属性对应的label值
+				取值为字典
+				  labels = {
+					‘属性’:'label值'，
+				}
+	
+			  内置小部件             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+			
+
+
+
+
+
+
+
+
+
+
+
+
+

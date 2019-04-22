@@ -1,0 +1,142 @@
+1.静态文件
+2.模板继承
+  1.语法
+   1.父模板中
+	标签：
+	{% block 名称 %}
+	{% endblock %}
+   2.子模板中
+	1.指定继承自哪个模板
+	{% extends  '父模板名称' %}
+	2.重写父模板中的名称
+	
+ 模型 models
+	1.根据数据库表结构创建出来的class
+	
+	2.ORM 
+	Django中使用的是自带的ORM框架
+	
+	三大特征;
+		1.数据表  到编程类的映射
+		2.数据类型的映射
+		3.关系映射
+ 	3.创建和配置 数据库
+		1.创建数据库
+	crete database 微博对吧default charset utf8
+collate utf8_general_ci
+
+	2.Django 的数据库配置
+	  DATABASES = {
+		‘default’：{
+		}
+	}
+ 
+1.ENGINE:指定数据库的引擎
+	取值：django.db.backends.mysql
+2.NAME:
+	要连接到的数据库名称
+3.USER：
+	登录到数据库的用户名
+4.PASSWORD	
+	登录到数据库的密码
+5.host
+	要连接到的主机地址
+6.port
+	指定端口号，mysql默认为3306
+
+数据库中的同步操作：
+	1. ./manage.py  makemigrations
+	  作用：将每个应用下的models.py文件生成一个数据
+	库中间文件并保存在migrations的目录中
+	2. ./manage.py migrate
+	  作用：将每个应用下的migrations目录中的中间文件同步到数据库中
+
+编写models
+	1.示例：
+
+	models的语法：
+	  class CLassName(models.Model):
+	     属性 = models.字段类型（字段选项）
+
+	     属性：生成到表中的列名
+	     字段类型：映射到表中的字段的类型
+	     字段选项：指定字段的说明
+	
+	字段类型（Field Types）
+	1.BooleanField（）
+	  编程语言中使用True 和FALSE 表示值
+	  数据库中使用1 和 0 来表示具体的值
+	  数据库类型：tinyint
+
+	2.CharField()
+	  字符串
+	  数据库类型：varchar
+	  注意：必须指定max_length参数来表示长度
+
+	3.DateField（）
+	  编程语言中使用字符串或date类型数据
+	  数据库类型：date
+
+	4.DateTimeField（）
+	  数据库类型：datetime
+	
+	5.DecimalField（）
+	  数据库类型：decimal
+	  money = models.DecimalField(max_digitals = 7,decimal_places=2)
+
+	6.FloatField()
+	  数据库类型：float
+	
+	7.IntegerField（）
+	  数据库类型：int
+	
+	8.EmailFiled（）
+	  数据库类型：varchar
+
+	9.URLField（）
+	  数据库类型：varchar
+	
+	10.ImageField（）
+	  存储图片的路径
+	  数据库类型：varchar
+	  注意：该类型结合Django的后台一起使用
+	  image  = models.ImageField(upload_to ='static/images/')
+
+	11.TextField()
+	   数据库的类型：text
+
+	1.字段选项（Field option）
+	   1.primary_key
+	     作用：指定当前列为主键
+	     取值：True 为主键
+	   2.null
+	     作用：指定当前子段是否允许为空，默认为FALSE，不能为空
+	   3.default
+	     作用：指定当前子段的默认值
+	   4.db_column
+	     作用：指定当前子段映射到表的列的名称
+	   5.db_index
+	     作用：指定是否为当前列增加索引
+	   6.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
